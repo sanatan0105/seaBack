@@ -12,7 +12,7 @@
 /config/*
 
 # Ignore uploaded files in development
-
+abc.js
 
 /node_modules
 
