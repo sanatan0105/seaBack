@@ -9,7 +9,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-/config/*
+
 
 # Ignore uploaded files in development
 
