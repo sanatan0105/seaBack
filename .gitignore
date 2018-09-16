@@ -10,7 +10,7 @@
 /log/*
 /tmp/*
 /config/*
-
+/config/config.json
 # Ignore uploaded files in development
 
 .DS_Store

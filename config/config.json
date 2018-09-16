@@ -1,10 +1,13 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "password": "root",
+    "database": "sea",
+    "host": "localhost",
+    "dialect": "mysql",
+    "logging": true,
+    "charset": "utf8",
+    "collate": "utf8_general_ci"
   },
   "test": {
     "username": "root",
