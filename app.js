@@ -9,6 +9,7 @@ var path = require('path')
 var fs = require('fs')
 var rfs = require('rotating-file-stream')
 var logDirectory = path.join(__dirname, 'log')
+const router  = require('./router');
 
 // ensure log directory exists
 fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
@@ -46,42 +47,7 @@ app.use((req, res, next) => {
 
 // Routes which should handle requests
 
-app.get('/', (req, res) => {
-    
-
-  category.findAll().then(result => {
-    res.send(result);
-    // console.log(result);
-  });
-
-  // console.log(process.env.NODE_ENV);
-  // res.send("workign");
-
-  // console.log(process.env.DB_HOST);
-  // console.log(config.get('port').port);
-  // console.log(config.get('ip'));
-   
-
-    // blog.create({
-    //     blog: "हिन्दी"
-    // }).then(result => {
-    //     blog.findAll().then(result => {
-    //         res.send(result);
-    //         // console.log(result);
-    //     });
-    // });
-
-    
-
-
-    // category.create({
-    //   category : "हिन्दी"
-    // }).then(result => {
-    //     console.log(result);
-    //     res.send(result);
-    // });
-
-});
+app.use(require('./router')); 
 
 
 app.use((req, res, next) => {

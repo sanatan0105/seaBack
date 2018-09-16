@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const category = sequelize.define('category', {
+  const blog_tag = sequelize.define('blog_tag', {
    
     bid: DataTypes.INTEGER,
     tid: DataTypes.INTEGER
@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
 
   });
-  category.associate = function(models) {
+  blog_tag.associate = function(models) {
     // associations can be defined here
   };
-  return category;
+  return blog_tag;
 };
