@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const blog = require('./models').blog;
+const category = require('./db/models').category;
 const sequelize = require('sequelize');
 var config = require('./config/config.js');
 const bodyParser = require("body-parser");
@@ -48,8 +48,14 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res) => {
     
-  console.log("working");
-  res.send("workign");
+
+  category.findAll().then(result => {
+    res.send(result);
+    // console.log(result);
+  });
+
+  // console.log(process.env.NODE_ENV);
+  // res.send("workign");
 
   // console.log(process.env.DB_HOST);
   // console.log(config.get('port').port);
@@ -68,8 +74,8 @@ app.get('/', (req, res) => {
     
 
 
-    // blog.create({
-    //    blog : "हिन्दी"
+    // category.create({
+    //   category : "हिन्दी"
     // }).then(result => {
     //     console.log(result);
     //     res.send(result);
