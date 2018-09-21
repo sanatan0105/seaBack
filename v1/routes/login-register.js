@@ -122,16 +122,18 @@ router.post("/login", [
                         token:token
                     });
                 }
+                else{
+                    res.status(500).json({
+                        status: "Failed",
+                        message: "Incorrect password and phone match"
+                    });
+                }
                 if(err){
                     return res.status(500).json({
                         error: err
                     })
                 }
             });
-
-            
-
-            
         }
         
     }).catch(function (err) {

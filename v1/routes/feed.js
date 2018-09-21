@@ -11,6 +11,7 @@ router.get("/", auth, (req, res, next) => {
     userData = req.userData;
     user_id = userData.id;
     Blog.findAll().then(doc => {
+        
         res.status(200).json({
             doc: doc
 

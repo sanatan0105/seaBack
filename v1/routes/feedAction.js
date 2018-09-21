@@ -22,7 +22,7 @@ router.post("/", auth, check('blog').not().isEmpty().trim().escape(),(req, res, 
         blog: blog,
         category: category
     }).then(doc=>{
-        console.log(doc)
+        
         res.status(200).json({
             doc,
             userData
