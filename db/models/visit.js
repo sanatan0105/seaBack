@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   visit.associate = function(models) {
     // associations can be defined here
+    
   };
   return visit;
 };
