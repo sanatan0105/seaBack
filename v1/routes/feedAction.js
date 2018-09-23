@@ -6,7 +6,7 @@ const Blog = require('../../db/models').blog;
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
-
+const Count = require('../../db/models').count;
 router.post("/", auth, check('blog').not().isEmpty().trim().escape(),(req, res, next) => {
     const errors = validationResult(req);
 
@@ -22,11 +22,18 @@ router.post("/", auth, check('blog').not().isEmpty().trim().escape(),(req, res, 
         blog: blog,
         category: category
     }).then(doc=>{
+        var blogId = doc.dataValues.id;
+        Count.create({
+            bid: blogId,
+            count: 1,
+        }).then(result=>{
+            res.status(200).json({
+                doc,
+                result,
+                userData
+            });
+        })
         
-        res.status(200).json({
-            doc,
-            userData
-        });
     })
 });
 

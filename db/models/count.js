@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     bid: DataTypes.INTEGER,
     count: DataTypes.INTEGER,
     updated_at: DataTypes.NOW
-
+    
   }, 
   {
     charset: 'utf8',
