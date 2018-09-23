@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.blog, {foreignKey: 'user_id'});
     user.hasMany(models.visit, {foreignKey: 'uid'});
     user.hasMany(models.like, {foreignKey: 'uid'});
+    user.hasMany(models.fl, {foreignKey: 'who'});
+    user.hasMany(models.fl, {foreignKey: 'whom'});
   };
   return user;
 };

@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   fl.associate = function(models) {
     // associations can be defined here
+    fl.belongsTo(models.user,{foreignKey: 'who'});
+    fl.belongsTo(models.user,{foreignKey: 'whom'});
   };
   return fl;
 };

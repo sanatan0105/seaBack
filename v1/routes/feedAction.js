@@ -37,7 +37,7 @@ router.post("/", auth, check('blog').not().isEmpty().trim().escape(),(req, res, 
     })
 });
 
-router.get("/:blogId", auth, (req, res, next) =>{
+router.delete("/:blogId", auth, (req, res, next) =>{
     const blogId = req.params.blogId;
     Blog.destroy({
         where:{
@@ -52,6 +52,8 @@ router.get("/:blogId", auth, (req, res, next) =>{
         });
     })
 })
+
+
 
 router.patch("/:blogId", auth, (req, res, next) =>{
     const blogId = req.params.blogId;
@@ -70,19 +72,5 @@ router.patch("/:blogId", auth, (req, res, next) =>{
 })
 
 
-router.delete("/:blogId", auth, (req, res, next) =>{
-    const blogId = req.params.blogId;
-    Blog.destroy({
-        where:{
-            id: blogId
-        }
-    }).then(doc=>{
-        console.log("Blog Deleted");
-        res.status(200).json({
-            status: "Success",
-            message: "Deleted Successfully",
-            doc
-        });
-    })
-})
+
 module.exports = router;
