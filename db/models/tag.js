@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   tag.associate = function(models) {
     // associations can be defined here
+    tag.hasMany(models.blog_tag, {foreignKey: 'tid'});
   };
   return tag;
 };

@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   like.associate = function(models) {
     // associations can be defined here
+    like.belongsTo(models.user,{foreignKey: 'uid'});
+    like.belongsTo(models.blog,{foreignKey: 'bid'});
   };
   return like;
 };

@@ -6,6 +6,12 @@ const Blog = require('../../db/models').blog;
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
+const LikeAction = require("../helper/like");
+
+
+router.get("/like/:ID", auth, LikeAction, (req, res, next) => {} )
+
+
 
 router.get("/", auth, (req, res, next) => {
     userData = req.userData;

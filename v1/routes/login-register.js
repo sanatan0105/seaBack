@@ -3,9 +3,36 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require('../../db/models').user;
+const Blog = require('../../db/models').blog;
+const Sequelize = require('sequelize');
+// const Blog = require('../../db/models').like;
+const Count = require('../../db/models').count;
+const Category = require('../../db/models').category;
+const Visit = require('../../db/models').visit;
+const Like = require('../../db/models').like;
+
 
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
+
+
+
+
+router.get("/test", (req, res, next) => {
+    Blog.findAll({ 
+        attributes: {  
+        },
+        where: {
+            "user_id": 8, 
+        }, 
+        include: [User, Count, Category, Like],
+        
+    }).then(doc => {
+        res.send(doc)
+        console.log(doc)
+    })
+})
+
 
 
 router.post("/signup", [

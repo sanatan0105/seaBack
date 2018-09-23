@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   visit.associate = function(models) {
     // associations can be defined here
-    
+    visit.belongsTo(models.user,{foreignKey: 'uid'});
+    visit.belongsTo(models.blog,{foreignKey: 'bid'});
   };
   return visit;
 };

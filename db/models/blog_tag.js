@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   });
   blog_tag.associate = function(models) {
     // associations can be defined here
+    blog_tag.belongsTo(models.tag,{foreignKey: 'tid'});
+    blog_tag.belongsTo(models.blog,{foreignKey: 'bid'});
   };
   return blog_tag;
 };
