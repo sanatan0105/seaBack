@@ -10,28 +10,23 @@ const Count = require('../../db/models').count;
 const Category = require('../../db/models').category;
 const Visit = require('../../db/models').visit;
 const Like = require('../../db/models').like;
-
+const LikeVeiwCount = require('../helper/likeViewCount');
 
 const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
 
 
+// router.get("/test/:ID", (req, res, next) => {
+//     blogID = req.params.ID;
+//     var blog =  LikeVeiwCount.likeViewCount(blogID);
+//     res.send(blog);
+    
+    
+// })
 
-router.get("/test", (req, res, next) => {
-    Blog.findAll({ 
-        attributes: {  
-        },
-        where: {
-            "user_id": 8, 
-        }, 
-        include: [User, Count, Category, Like],
-        
-    }).then(doc => {
-        res.send(doc)
-        console.log(doc)
-    })
-})
+// all of my express stuff goes here and eventually i setup my route below
+
 
 
 
