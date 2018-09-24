@@ -9,7 +9,6 @@ const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
-
 const InsetView = require('../helper/viewInsert');
 router.get("/:ID", auth, (req, res, next) => {
     visitor_id = req.userData.id;
@@ -40,7 +39,6 @@ router.get("/:ID", auth, (req, res, next) => {
           }); 
     });
 });
-
 //i am a logged in user and i want to follow a person with id ID
 router.get("/follow/:ID", auth, (req, res, next)=>{
   var who = req.userData.id;
@@ -83,8 +81,6 @@ router.get("/follow/:ID", auth, (req, res, next)=>{
     });
   })
 })
-
-
 router.delete("/follow/:ID", auth, (req, res, next)=>{
   var who = req.userData.id;
   var whom = req.params.ID;
@@ -116,9 +112,5 @@ router.delete("/follow/:ID", auth, (req, res, next)=>{
         error: err
     });
 })
-
-
 })
-
-
 module.exports = router;

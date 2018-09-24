@@ -1,11 +1,3 @@
-const express = require("express");
-
-const User = require('../../db/models').user;
-const Blog = require('../../db/models').blog;
-const Sequelize = require('sequelize');
-const Count = require('../../db/models').count;
-const Category = require('../../db/models').category;
-const Visit = require('../../db/models').visit;
 const Like = require('../../db/models').like;
 module.exports = (req, res, next) => {
     userid = req.userData.id;
