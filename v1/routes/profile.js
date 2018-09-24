@@ -37,15 +37,8 @@ router.get("/:ID", auth, (req, res, next) => {
             });
           }).catch(err=>{
             next(err);
-          });
-
-        
+          }); 
     });
-    
-    
-    
-
-
 });
 
 
