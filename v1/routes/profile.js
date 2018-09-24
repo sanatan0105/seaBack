@@ -41,5 +41,84 @@ router.get("/:ID", auth, (req, res, next) => {
     });
 });
 
+//i am a logged in user and i want to follow a person with id ID
+router.get("/follow/:ID", auth, (req, res, next)=>{
+  var who = req.userData.id;
+  var whom = req.params.ID;
+  
+  if (who==whom){
+    return res.status(401).json({
+      status: "Failed",
+      message: "You can't follow yourself"
+    });
+  }
+  fl.findOne({
+    where: {
+        who:who,
+        whom:whom
+    }
+  }).then(doc=>{
+    if(doc!=null){
+      return res.status(409).json({
+        status: "Failed",
+        message: "Already following",
+        doc
+      });
+    } else{
+      fl.create({
+        who:who,
+        whom: whom
+      }).then(result => {
+        res.status(200).json({
+          status: "Success",
+          message:"Followed",
+          result,
+          userData: req.userData
+        })
+      })
+    }
+  }).catch(function (err) {
+    return res.status(500).json({
+        error: err
+    });
+  })
+})
+
+
+router.delete("/follow/:ID", auth, (req, res, next)=>{
+  var who = req.userData.id;
+  var whom = req.params.ID;
+  
+  if (who==whom){
+    return res.status(401).json({
+      status: "Failed",
+      message: "You can't unfollow yourself"
+    });
+  }
+  fl.destroy({
+    where: {
+        who:who,
+        whom:whom
+    }
+  }).then(doc=>{
+    if(doc == 1){
+     return res.status(200).json({
+        status:"Success",
+        message: "Unfollowed Successfully"
+      });
+    }
+    return res.status(409).json({
+      status:"Failed",
+      message: "Not Following the user"
+    })
+  }).catch(function (err) {
+    return res.status(500).json({
+        error: err
+    });
+})
+
+
+})
+
 
 module.exports = router;
