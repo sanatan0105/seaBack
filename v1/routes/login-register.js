@@ -32,7 +32,7 @@ const { sanitizeBody } = require('express-validator/filter');
 
 router.post("/signup", [
         check('phone').isLength({ min: 10, max:10 }).not().isEmpty().trim().escape(),
-        check('password').isLength({ min: 6 }).not().isEmpty().trim().escape(),
+        check('password').isLength({ min: 4 }).not().isEmpty().trim().escape(),
         check('name').isLength({ min: 2 }).not().isEmpty().trim().escape()
     ], (req, res, next) => {
     const errors = validationResult(req);
@@ -91,7 +91,7 @@ router.post("/signup", [
 
 router.post("/login", [
     check('phone').isLength({ min: 10, max:10 }).not().isEmpty().trim().escape(),
-    check('password').isLength({ min: 6 }).not().isEmpty().trim().escape()
+    check('password').isLength({ min: 4 }).not().isEmpty().trim().escape()
 ], (req, res, next) => {
     const errors = validationResult(req);
 
