@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   count.associate = function(models) {
     // associations can be defined here
     count.belongsTo(models.blog, {foreignKey: 'bid'}); 
+    
   };
   return count;
 };
