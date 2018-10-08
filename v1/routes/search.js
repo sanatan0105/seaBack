@@ -16,6 +16,34 @@ const InsetView = require('../helper/viewInsert');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
+router.get("/shyari-by-id/:ID", (req, res, next) => {
+    const blogid = req.params.ID; 
+    Blog.findOne({ 
+        where: {
+            id: blogid
+        },
+        include:[ 
+            { 
+                model: User, 
+            },
+            { 
+                model: Count,
+            },
+            { 
+                model: Like,
+                include: [ {
+                    model: User
+                }]
+            },
+             
+        ],
+    }).then(doc=>{
+        res.status(200).json({
+            doc
+        });
+    })
+        
+})
 
 router.get("/category", (req, res, next) => {
     Category.findAll({ 
@@ -69,6 +97,7 @@ router.get("/get-category/:ID", (req, res, next) => {
         });
     }) 
 })
+
 
 router.get("/shyari-by-cat/:ID", (req, res, next) => {
     const catId = req.params.ID; 
