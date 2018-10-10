@@ -1,12 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const visit = sequelize.define('visit', {
-   
-    bid: DataTypes.INTEGER,
-    uid: DataTypes.TEXT,
+  const app_visit = sequelize.define('app_visit', {
+    token: DataTypes.TEXT,
     status: DataTypes.INTEGER,
     visited_at: DataTypes.NOW
-
   }, 
   {
     charset: 'utf8',
@@ -16,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true
 
   });
-  visit.associate = function(models) {
+  app_visit.associate = function(models) {
     // associations can be defined here
-    visit.belongsTo(models.blog,{foreignKey: 'bid'});
+    
   };
-  return visit;
+  return app_visit;
 };

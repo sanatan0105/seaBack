@@ -4,6 +4,7 @@ const User = require('../../db/models').user;
 const Blog = require('../../db/models').blog;
 const Visit = require('../../db/models').visit;
 const Like = require('../../db/models').like;
+const Count = require('../../db/models').count;
 const Category = require('../../db/models').category;
 const fl = require('../../db/models').fl;
 const { check, validationResult } = require('express-validator/check');
@@ -44,12 +45,18 @@ router.post("/", auth, [
         category_id: category
     })
     .then(result => {
-        return res.status(200).json({
-            status: "Success",
-            message: "Code Sent",
-            userData: req.userData,
-            body: result
+        Count.create({
+            bid: blog,
+            count: 1
+        }).then(doc=>{
+            return res.status(200).json({
+                status: "Success",
+                message: "Code Sent",
+                userData: req.userData,
+                body: result
+            })
         })
+        
     }) 
     .catch(function (err) {
         return res.status(500).json({
