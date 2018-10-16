@@ -12,6 +12,33 @@ const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
 const InsetView = require('../helper/viewInsert');
 const Sequelize = require('sequelize')
+
+
+
+router.get('/follow-unfollow/:myid/:profileid', (req, res, next)=>{
+  var my_id = req.params.myid;
+  var profile_id = req.params.profileid;
+  fl.findAll({
+    where:{
+      who: my_id,
+      whom: profile_id
+    }
+  }).then(doc=>{
+    if(doc.length>0){
+      res.status(200).json(({
+        status: "Success",
+        message:"Following"
+      }))
+    } else {
+      res.status(200).json(({
+        status: "Success",
+        message:"Follow"
+      }))
+    }
+  })
+})
+
+
 router.get("/user/:ID", (req, res, next)=>{
   user_id = req.params.ID;
   User.findAll({ 
@@ -39,7 +66,7 @@ router.get("/follower/:ID", (req, res, next)=>{
     dialect: 'mysql',
   });
   sequelize.query(
-    ' select name, id from user where id in (select who from fl where whom =:user)',
+    ' select name, id, username from user where id in (select who from fl where whom =:user)',
     {
       replacements: { 
         user: user_id 
@@ -51,25 +78,6 @@ router.get("/follower/:ID", (req, res, next)=>{
       })
     })
 
-
-  // fl.findAll({ 
-    
-  //   where: { 
-  //     whom: user_id, 
-  //   } 
-    
-  // }).then(doc=>{
-  //   console.log(doc.length);
-    
-    
-  //   res.status(200).json({
-  //     doc
-  //   });
-  // }).catch(function (err) {
-  //   return res.status(500).json({
-  //       error: err
-  //   });
-  // })
 })
 
 
@@ -81,7 +89,7 @@ router.get("/following/:ID", (req, res, next)=>{
     [
       {
         model: User,
-        attributes: ['id', 'name', 'created_at'],
+        attributes: ['id', 'name','username', 'created_at'],
       }
     ],
     where: { 
@@ -139,11 +147,13 @@ router.get("/user-liked/:ID", (req, res, next)=>{
 router.get("/user-and-blog/:ID", (req, res, next)=>{
   user_id = req.params.ID;
   User.findOne({ 
-    attributes: ['id', 'name', 'created_at'],
+    attributes: ['id', 'name','username', 'created_at'],
+    limit: 100,
     include:
     [ 
       { 
         model: Blog,
+        
         attributes: ['id', 'blog', 'create_at'],
         include:[ 
           { 

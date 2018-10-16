@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.TEXT,
     password: DataTypes.TEXT,
     phone: DataTypes.INTEGER,
-    created_at: DataTypes.NOW
+    created_at: DataTypes.NOW,
+    username: DataTypes.TEXT,
 
   }, 
   {

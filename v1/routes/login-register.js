@@ -288,10 +288,28 @@ router.post("/signup", [
                         phone: phone
                     }).then(doc => {
                         var dataValues = doc.dataValues
-                        return res.status(200).json({
+                        res.status(200).json({
                             status: "Success",
                             message: "Registered Successfully",
                             body: dataValues
+                        });
+
+                        
+                        var text = "";
+                        text += name.split(" ")[0];
+                        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                        
+                        for (var i = 0; i < 3; i++) {
+                            text += possible.charAt(Math.floor(Math.random() * possible.length));
+                        }
+                        console.log(text);
+                        User.update({ 
+                            username: text
+                        },
+                        { 
+                            where: { 
+                                phone: phone
+                            } 
                         })
                         
                     }) 
@@ -385,6 +403,26 @@ router.post("/login", [
 });
 
 
+router.get("/abcd", (req, res, next)=>{
+    var status = false;
+    for (var j=0; j< 5; j++) {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      
+        for (var i = 0; i < 5; i++) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        User.findAll({
+            where: {
+                username: text
+            }
+        }).then(doc=>{
+            
+            
+        })
+    }
+})
 
 
 
