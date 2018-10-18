@@ -12,7 +12,7 @@ const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
 const InsetView = require('../helper/viewInsert');
-
+const jwt = require('jsonwebtoken');
 
 router.get("/", (req, res, next) => {
     Version.findOne({ 

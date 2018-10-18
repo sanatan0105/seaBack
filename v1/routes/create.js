@@ -12,7 +12,7 @@ const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
 const InsetView = require('../helper/viewInsert');
-
+const jwt = require('jsonwebtoken');
 
 router.get("/category", (req, res, next) => {
     Category.findAll({ 
@@ -45,18 +45,18 @@ router.post("/", auth, [
         category_id: category
     })
     .then(result => {
+        console.log(result.dataValues.id);
+
         Count.create({
-            bid: blog,
+            bid: result.dataValues.id,
             count: 1
         }).then(doc=>{
             return res.status(200).json({
                 status: "Success",
-                message: "Code Sent",
-                userData: req.userData,
+                message: "Blog created",
                 body: result
             })
         })
-        
     }) 
     .catch(function (err) {
         return res.status(500).json({

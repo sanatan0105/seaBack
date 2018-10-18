@@ -11,12 +11,12 @@ const { check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
-
+const jwt = require('jsonwebtoken');
 const InsetView = require('../helper/viewInsert');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-router.get("/shyari-by-id/:ID", (req, res, next) => {
+router.get("/shyari-by-id/:ID/:TOKEN/:STATUS", (req, res, next) => {
     const blogid = req.params.ID; 
     Blog.findOne({ 
         where: {
@@ -41,6 +41,27 @@ router.get("/shyari-by-id/:ID", (req, res, next) => {
         res.status(200).json({
             doc
         });
+        var token =req.params.TOKEN;
+        var status =parseInt(req.params.STATUS);
+
+        if(status == 0){
+            uid = token
+        } else {
+            
+            const decoded = jwt.verify(token, process.env.JWT_KEY);
+            req.userData = decoded;
+            uid = req.userData.id;
+        }
+
+        var blogId = doc.dataValues.id;
+        Visit.create({
+            bid: blogId,
+            uid: uid,
+            status: status,
+        }).then(doc=>{
+            Count.update({ count: Sequelize.literal('count + 1') }, { where: { bid: blogId }})
+        });
+    
     })
         
 })

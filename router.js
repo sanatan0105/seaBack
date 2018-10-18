@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const CSRF = require('./v1/middleware/header-auth')
 
 
 
@@ -17,7 +18,7 @@ const blogVisit = require('./v1/routes/blog-visit')
 
 router.use('/loginRegister', loginRegister);
 router.use('/feed', feed);
-router.use('/profile', profile);
+router.use('/profile', CSRF, profile);
 router.use('/feedAction', feedAction);
 router.use('/blog', blog);
 router.use('/create', create);

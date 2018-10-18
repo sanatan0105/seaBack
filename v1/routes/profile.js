@@ -12,7 +12,7 @@ const auth = require('../middleware/check_auth');
 var ProfileFollow = require('../helper/profileFollow')
 const InsetView = require('../helper/viewInsert');
 const Sequelize = require('sequelize')
-
+const jwt = require('jsonwebtoken');
 
 
 router.get('/follow-unfollow/:myid/:profileid', (req, res, next)=>{
@@ -230,6 +230,8 @@ router.get("/follow/:ID", auth, (req, res, next)=>{
     });
   })
 })
+
+//i am a logged in user and i want to unfollow a person with id ID
 router.delete("/follow/:ID", auth, (req, res, next)=>{
   var who = req.userData.id;
   var whom = req.params.ID;

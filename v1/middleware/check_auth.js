@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     } catch (error) {
         return res.status(401).json({
             status: "Failed",
-            message: 'Auth failed'
+            message: 'Please login to Like'
         });
     }
 };
