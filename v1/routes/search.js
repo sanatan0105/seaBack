@@ -96,8 +96,6 @@ router.get("/shyari/:LIMIT/:OFFSET/:TOKEN/:STATUS", (req, res, next) => {
 
     Blog.findAll({ 
         distinct: true,
-        
-        order: [ [ 'id', 'ASC' ] ],
         limit: limit,
         offset: offset,
         include:[ 
@@ -172,7 +170,7 @@ router.get("/shyari-by-cat/:ID/:limit/:offsest/:token/:status", (req, res, next)
             category_id: catId
         },
         distinct: true,
-        order: [ [ 'id', 'ASC' ] ],
+       
         limit: limit,
         offset: offsest,
         include:[ 
@@ -234,9 +232,9 @@ router.post("/liveSearchShyari", (req, res, next) => {
             }
         },
         distinct: true,
-        order: [ [ 'id', 'ASC' ] ],
+        
         limit: limit,
-        offset: offset*limit,
+        offset: offset,
         include:[ 
             { 
                 model: User, 
@@ -293,7 +291,7 @@ router.post("/liveSearchCategory", (req, res, next) => {
             }
         },
         distinct: true,
-        order: [ [ 'id', 'ASC' ] ],
+        
         limit: 200,
         offset: 0,
     }).then(doc=>{
@@ -325,7 +323,6 @@ router.post("/shyari-live-search", (req, res, next) => {
             
         },
         distinct: true,
-        order: [ [ 'id', 'ASC' ] ],
         limit: limit,
         offset: offset*limit,
         include:[ 

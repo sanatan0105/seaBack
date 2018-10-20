@@ -62,11 +62,11 @@ router.get("/follower/:ID", (req, res, next)=>{
   user_id = req.params.ID;
 
   var sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: 'localhost',
+    host: 'blogworld.csfvs1doaids.ap-south-1.rds.amazonaws.com',
     dialect: 'mysql',
   });
   sequelize.query(
-    ' select name, id, username from user where id in (select who from fl where whom =:user)',
+    ' select name, id, username from user where id in (select who from fl where whom =:user order by id desc) ',
     {
       replacements: { 
         user: user_id 
@@ -85,6 +85,7 @@ router.get("/follower/:ID", (req, res, next)=>{
 router.get("/following/:ID", (req, res, next)=>{
   user_id = req.params.ID;
   fl.findAll({ 
+    order: [ [ 'id', 'DESC' ] ],
     include: 
     [
       {
@@ -109,10 +110,12 @@ router.get("/following/:ID", (req, res, next)=>{
 router.get("/user-liked/:ID", (req, res, next)=>{
   user_id = req.params.ID;
   Like.findAll({ 
+    order: [ [ 'id', 'DESC' ] ],
     include:
     [
       {
         model: Blog,
+        order: [ [ 'id', 'DESC' ] ],
         include:[ 
           { 
               model: User, 
@@ -148,12 +151,13 @@ router.get("/user-and-blog/:ID", (req, res, next)=>{
   user_id = req.params.ID;
   User.findOne({ 
     attributes: ['id', 'name','username', 'created_at'],
+
     limit: 100,
     include:
     [ 
       { 
         model: Blog,
-        
+        order: [ [ 'id', 'DESC' ] ],
         attributes: ['id', 'blog', 'create_at'],
         include:[ 
           { 

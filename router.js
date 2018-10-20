@@ -18,7 +18,7 @@ const blogVisit = require('./v1/routes/blog-visit')
 
 router.use('/loginRegister', loginRegister);
 router.use('/feed', feed);
-router.use('/profile', CSRF, profile);
+router.use('/profile', profile);
 router.use('/feedAction', feedAction);
 router.use('/blog', blog);
 router.use('/create', create);
