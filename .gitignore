@@ -12,7 +12,7 @@
 /config/*
 /config/config.json
 # Ignore uploaded files in development
-
+node_modules
 .DS_Store
 .idea
 .idea/*
